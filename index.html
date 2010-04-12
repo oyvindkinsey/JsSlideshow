@@ -1,0 +1,44 @@
+<!<!doctype html>
+<html>
+    <head>
+        <title>JsSlideshow</title>
+        <script type="text/javascript" src="JsSlideshow.js">
+        </script>
+        <style type="text/css">
+            #slideshow {
+                height: 332px;
+                width: 332px;
+                overflow: hidden;
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="slideshow">
+        </div>
+        The code needed:
+        <br/>
+        <pre>
+var sl = new JsSlideshow({
+    target: "slideshow",
+    images: ["4504470765_90aa261be6.jpg", "images/4510204607_42bbb55d9c.jpg", "images/4510826808_f6edfc906a.jpg", "images/4513712885_0c008e3638.jpg"],
+    transition: 3000,
+    time: 2000,
+    url: "http://www.flickr.com/photos/bobowen"
+});
+		</pre>
+        The images come from <a href="http://www.flickr.com/photos/bobowen">http://www.flickr.com/photos/bobowen</a>
+        and is shared a under Creative Commons Attribution.
+        <script type="text/javascript">
+            (function(){
+                var sl = new JsSlideshow({
+                    target: "slideshow",
+                    images: ["images/4504470765_90aa261be6.jpg", "images/4510204607_42bbb55d9c.jpg", "images/4510826808_f6edfc906a.jpg", "images/4513712885_0c008e3638.jpg"],
+                    transition: 3000,
+                    time: 2000,
+                    url: "http://www.flickr.com/photos/bobowen"
+                });
+            })();
+        </script>
+    </body>
+</html>
