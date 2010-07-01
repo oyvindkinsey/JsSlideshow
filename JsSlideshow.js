@@ -7,11 +7,12 @@
  *
  */
 function JsSlideshow(config){
-    var images = [], target, time, transition, timer, image, steps, i, len, first;
+    var index = 0, target, time, transition, timer, steps, image;
     
     function _fade(opacity){
         opacity = opacity - (1 / steps);
         if (opacity > 0) {
+            // keep fading
             image.style.opacity = opacity;
             image.style.filter = "alpha(opacity=" + (opacity * 100) + ")";
             timer = window.setTimeout(function(){
@@ -19,11 +20,18 @@ function JsSlideshow(config){
             }, (transition / steps));
         }
         else {
-            target.insertBefore(image, target.firstChild);
-            image.style.opacity = 1;
-            image.style.filter = "alpha(opacity=100)";
-            images = target.getElementsByTagName("img");
-            image = images[images.length - 1];
+            // slide
+            if (++index == config.images.length) {
+                index = 0;
+            }
+            var prevImage = image;
+            image = config.images[index].dom;
+            // move the image to the back
+            target.insertBefore(prevImage, target.firstChild);
+            // reset the opacity
+            prevImage.style.opacity = 1;
+            prevImage.style.filter = "alpha(opacity=100)";
+            // start a new slide
             timer = window.setTimeout(function(){
                 _fade(1);
             }, time);
@@ -31,7 +39,7 @@ function JsSlideshow(config){
     }
     
     target = typeof config.target === "string" ? document.getElementById(config.target) : config.target;
-    images = config.images;
+    
     time = config.time;
     transition = config.transition;
     steps = config.steps || 50;
@@ -42,22 +50,19 @@ function JsSlideshow(config){
         };
         target.style.cursor = "pointer";
     }
-    
-    for (i = 0, len = images.length; i < len; i++) {
+    // load the images
+    for (var i = 0, len = config.images.length; i < len; i++) {
         image = document.createElement("img");
         image.style.position = "absolute";
         image.style.top = "0px";
         image.style.left = "0px";
-        image.src = images[i];
-        if (first) {
-            target.insertBefore(image, target.firstChild);
-        }
-        else {
-            first = image;
-            target.appendChild(image);
-        }
+        image.src = config.images[i].url;
+        image.title = config.images[i].name;
+        target.insertBefore(image, target.firstChild);
+        config.images[i].dom = image;
     }
-    image = first;
+    image = config.images[0].dom;
+    //start a slide
     timer = window.setTimeout(function(){
         _fade(1);
     }, time);

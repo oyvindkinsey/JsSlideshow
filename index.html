@@ -33,7 +33,19 @@ var sl = new JsSlideshow({
             (function(){
                 var sl = new JsSlideshow({
                     target: "slideshow",
-                    images: ["images/4504470765_90aa261be6.jpg", "images/4510204607_42bbb55d9c.jpg", "images/4510826808_f6edfc906a.jpg", "images/4513712885_0c008e3638.jpg"],
+                    images: [{
+                        url: "images/4504470765_90aa261be6.jpg",
+                        text: "foo"
+                    }, {
+                        url: "images/4510204607_42bbb55d9c.jpg",
+                        text: "foo"
+                    }, {
+                        url: "images/4510826808_f6edfc906a.jpg",
+                        text: "foo"
+                    }, {
+                        url: "images/4513712885_0c008e3638.jpg",
+                        text: "foo"
+                    }],
                     transition: 3000,
                     time: 2000,
                     url: "http://www.flickr.com/photos/bobowen"
