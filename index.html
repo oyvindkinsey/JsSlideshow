@@ -16,6 +16,8 @@
     <body>
         <div id="slideshow">
         </div>
+        <div id="name">
+        </div>
         The code needed:
         <br/>
         <pre>
@@ -31,24 +33,30 @@ var sl = new JsSlideshow({
         and is shared a under Creative Commons Attribution.
         <script type="text/javascript">
             (function(){
+                var name = document.getElementById("name");
                 var sl = new JsSlideshow({
                     target: "slideshow",
                     images: [{
                         url: "images/4504470765_90aa261be6.jpg",
-                        text: "foo"
+                        title: "foo1"
                     }, {
                         url: "images/4510204607_42bbb55d9c.jpg",
-                        text: "foo"
+                        title: "foo2"
                     }, {
                         url: "images/4510826808_f6edfc906a.jpg",
-                        text: "foo"
+                        title: "foo3"
                     }, {
                         url: "images/4513712885_0c008e3638.jpg",
-                        text: "foo"
+                        title: "foo4"
                     }],
                     transition: 3000,
                     time: 2000,
-                    url: "http://www.flickr.com/photos/bobowen"
+                    url: "http://www.flickr.com/photos/bobowen",
+                    listeners: {
+                        slide: function(from, to){
+                            name.innerHTML = to.title;
+                        }
+                    }
                 });
             })();
         </script>

@@ -21,8 +21,12 @@ function JsSlideshow(config){
         }
         else {
             // slide
+            var prevIndex = index;
             if (++index == config.images.length) {
                 index = 0;
+            }
+            if (config.listeners.slide) {
+                config.listeners.slide(config.images[prevIndex], config.images[index]);
             }
             var prevImage = image;
             image = config.images[index].dom;
@@ -50,6 +54,9 @@ function JsSlideshow(config){
         };
         target.style.cursor = "pointer";
     }
+    if (!config.listeners) {
+        config.listeners = {};
+    }
     // load the images
     for (var i = 0, len = config.images.length; i < len; i++) {
         image = document.createElement("img");
@@ -57,12 +64,15 @@ function JsSlideshow(config){
         image.style.top = "0px";
         image.style.left = "0px";
         image.src = config.images[i].url;
-        image.title = config.images[i].name;
+        image.title = config.images[i].title;
         target.insertBefore(image, target.firstChild);
         config.images[i].dom = image;
     }
     image = config.images[0].dom;
     //start a slide
+    if (config.listeners.slide) {
+        config.listeners.slide(null, config.images[index]);
+    }
     timer = window.setTimeout(function(){
         _fade(1);
     }, time);
